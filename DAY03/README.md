@@ -1,7 +1,5 @@
 🏗️ AZURE CLOUD LEARNING PROJECT — FROM MONOLITHIC TO 3-TIER ARCHITECTURE
 
-In Microsoft Azure, this project demonstrates my journey from misunderstanding architecture concepts to building a proper 2-tier cloud setup and understanding how it evolves into a 3-tier system.
-
 ---
 
 # 🏗️ UPDATED GUIDE (Web + DB on Azure — FIXED)
@@ -74,33 +72,48 @@ Allow Web → DB:
 
 ## 🛠️ STEP 4: Install MySQL (DB VM)
 
+```bash
 sudo apt update
 sudo apt install mysql-server -y
+```
 
 ---
 
 ## ⚙️ STEP 5: FIX MySQL (CRITICAL LESSON)
 
+```bash
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+```
 
 Change:
 
+```
 bind-address = 127.0.0.1 ❌
+```
 
 TO:
 
+```
 bind-address = 0.0.0.0 ✔
+```
 
 Restart MySQL:
 
+```bash
 sudo systemctl restart mysql
+```
 
 Verify:
 
+```bash
 sudo ss -tulnp | grep 3306
+```
 
 ✔ Expected:
+
+```
 0.0.0.0:3306
+```
 
 ---
 
@@ -108,18 +121,24 @@ sudo ss -tulnp | grep 3306
 
 From Web VM:
 
+```bash
 nc -zv 10.0.2.4 3306
+```
 
 ✔ Expected:
+
+```
 succeeded
+```
 
 ---
 
 ## 🔐 STEP 7: ARCHITECTURE FLOW
 
-Laptop → Web VM (public IP)  
-Web VM → DB VM (private IP)  
+```
+Laptop → Web VM (public IP)
+Web VM → DB VM (private IP)
 Laptop → DB VM ❌ blocked (correct security design)
+```
 
 ---
-
